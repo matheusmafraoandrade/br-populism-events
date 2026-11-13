@@ -1,8 +1,8 @@
-# br-illiberal-events
+# br-populism-events
 
-A small, fully documented pipeline that codes **illiberal actions by a populist leader in government** (case: Brazil) from source texts, verifies every coded event against the original document, cleans the resulting dataset and visualizes it.
+A small, fully documented pipeline that codes **populist actions by Jair Bolsonaro (Brazilian president from 2019 to 2022)** from source texts, verifies every coded event against the original document, cleans the resulting dataset and visualizes it.
 
-It is a miniature of an event-level data workflow: *AI-assisted coding → source verification → cleaning/harmonization → documentation → figures*. The goal is not to make substantive claims about any politician, but to show a careful, auditable way of using LLMs for data construction.
+It is a miniature of an event-level data workflow: *AI-assisted coding → source verification → cleaning/harmonization → documentation → figures*. The goal is not to make substantive claims about any politician, but to show a way of using LLMs for data construction.
 
 ## Pipeline
 
@@ -14,25 +14,19 @@ sources/*.txt ──► src/extract.py ──► data/events_raw.jsonl
                                           │
                                           ▼
                                     src/clean.py ──► data/events_clean.csv
-                                          │
-                         ┌────────────────┴────────────────┐
-                         ▼                                 ▼
-                    src/plot.py                        src/fx.py (optional)
-              figures/timeline.png            figures/fx_events.png
 ```
 
 1. **Codebook** (`codebook.md`): categories, definitions and coding rules. The LLM prompt is built from this file.
 2. **Extraction** (`src/extract.py`): an LLM returns JSON events with `action`, `category`, `date`, `outcome` and a **verbatim quote** supporting each of action, date and outcome.
 3. **Verification** (`src/verify.py`): checks programmatically that each quote appears in the source text. Events are marked `confirmed`, `partial` or `unconfirmed`. Nothing is trusted just because the model said it.
 4. **Cleaning** (`src/clean.py`): date parsing, out-of-period flags, missing sources, near-duplicate detection across sources.
-5. **Figures** (`src/plot.py`, `src/fx.py`): timeline of confirmed events by category; optional descriptive BRL/USD chart (Banco Central SGS API) around events. **Descriptive only, no causal claims.**
 
 ## Setup
 
 ```bash
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-cp .env.example .env   # add your GEMINI_API_KEY from Google AI Studio
+cp .env   # add your GEMINI_API_KEY from Google AI Studio
 ```
 
 ## Usage
@@ -45,8 +39,6 @@ cp .env.example .env   # add your GEMINI_API_KEY from Google AI Studio
 python src/extract.py
 python src/verify.py
 python src/clean.py
-python src/plot.py
-python src/fx.py   # optional
 ```
 
 ## Documentation of how results are obtained
