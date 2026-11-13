@@ -1,8 +1,8 @@
 # br-populism-events
 
-A small Python pipeline for identifying and coding populist actions associated with Jair Bolsonaro's government (2019–2022) from documentary sources and articles.
+A small Python pipeline for identifying and coding illiberal actions associated with Jair Bolsonaro's government (2019–2022) from documentary sources and articles.
 
-It is a miniature of an event-level data workflow: *AI-assisted coding → source verification → cleaning/harmonization → documentation → figures*. The goal is not to make substantive claims about any politician, but to show a way of using LLMs for data construction.
+It is a miniature of an event-level data workflow: *AI-assisted coding → source verification → cleaning/harmonization → documentation*. The goal is not to make substantive claims about any politician, but to show a way of using LLMs for data construction.
 
 ## Pipeline
 
@@ -60,7 +60,7 @@ python src/clean.py
 |---|---|
 | Sources used |5|
 | Events extracted |5|
-| Confirmed |5|
+| Events classified as confirmed by quote matching |5|
 | Duplicates removed |0|
 
 ## Limitations
