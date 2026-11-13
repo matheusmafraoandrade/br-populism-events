@@ -1,0 +1,7 @@
+{
+  "leader": "Jair Bolsonaro",
+  "period_start": "2019-01-01",
+  "period_end": "2022-12-31",
+  "model": "claude-sonnet-5-5",
+  "prompt_version": "v0.1"
+}
