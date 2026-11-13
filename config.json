@@ -2,6 +2,6 @@
   "leader": "Jair Bolsonaro",
   "period_start": "2019-01-01",
   "period_end": "2022-12-31",
-  "model": "claude-sonnet-5-5",
+  "model": "gemini-4-hydrogen",
   "prompt_version": "v0.1"
 }

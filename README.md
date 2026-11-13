@@ -32,7 +32,7 @@ sources/*.txt ──► src/extract.py ──► data/events_raw.jsonl
 ```bash
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-cp .env.example .env   # add your ANTHROPIC_API_KEY
+cp .env.example .env   # add your GEMINI_API_KEY from Google AI Studio
 ```
 
 ## Usage

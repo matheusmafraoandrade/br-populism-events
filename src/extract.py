@@ -7,7 +7,7 @@ import os
 import re
 from datetime import datetime, timezone
 
-import anthropic
+from google import genai
 from dotenv import load_dotenv
 
 from common import DATA, SOURCES, load_codebook, load_config
@@ -35,7 +35,7 @@ def parse_json(text: str):
 def main():
     load_dotenv()
     cfg = load_config()
-    client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
+    client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
     system = SYSTEM_TEMPLATE.format(
         codebook=load_codebook(), leader=cfg["leader"],
         start=cfg["period_start"], end=cfg["period_end"],
@@ -46,15 +46,18 @@ def main():
     with out.open("w", encoding="utf-8") as f:
         for path in sorted(SOURCES.glob("*.txt")):
             text = path.read_text(encoding="utf-8")
-            resp = client.messages.create(
+            interaction = client.interactions.create(
                 model=cfg["model"],
-                max_tokens=4096,
-                temperature=0,
-                system=system,
-                messages=[{"role": "user", "content": f"SOURCE TEXT:\n\n{text}"}],
+                system_instruction=system,
+                input=f"SOURCE TEXT:\n\n{text}",
+                store=False,
+                generation_config={
+                    "max_output_tokens": 4096,
+                    "thinking_level": "low",
+                },
             )
             try:
-                events = parse_json(resp.content[0].text)
+                events = parse_json(interaction.output_text or "")
             except json.JSONDecodeError:
                 print(f"[warn] could not parse JSON for {path.name}; skipped (check manually)")
                 continue

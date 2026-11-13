@@ -1,4 +1,4 @@
-anthropic>=0.40
+google-genai>=2.34
 pandas>=2.0
 matplotlib>=3.8
 requests>=2.31
