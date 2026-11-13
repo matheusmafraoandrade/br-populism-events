@@ -1,6 +1,6 @@
 # br-populism-events
 
-A small, fully documented pipeline that codes **populist actions by Jair Bolsonaro (Brazilian president from 2019 to 2022)** from source texts, verifies every coded event against the original document, cleans the resulting dataset and visualizes it.
+A small, fully documented pipeline that codes **populist actions by Jair Bolsonaro (Brazilian president from 2019 to 2022)** from source texts, verifies every coded event against the original document and cleans the resulting dataset.
 
 It is a miniature of an event-level data workflow: *AI-assisted coding → source verification → cleaning/harmonization → documentation → figures*. The goal is not to make substantive claims about any politician, but to show a way of using LLMs for data construction.
 
@@ -26,7 +26,14 @@ sources/*.txt ──► src/extract.py ──► data/events_raw.jsonl
 ```bash
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-cp .env   # add your GEMINI_API_KEY from Google AI Studio
+```
+
+### Environment Setup
+
+Create a `.env` file in the project root with the following variable:
+
+```env
+GEMINI_API_KEY=your_api_key
 ```
 
 ## Usage
@@ -51,14 +58,13 @@ python src/clean.py
 
 | Metric | Value |
 |---|---|
-| Sources used | |
-| Events extracted | |
-| Confirmed / partial / unconfirmed | |
-| Duplicates removed | |
+| Sources used |5|
+| Events extracted |5|
+| Confirmed / partial / unconfirmed |5|
+| Duplicates removed |0|
 
 ## Limitations
 
 - Small, non-representative set of sources; not a complete event history.
 - Verbatim-quote matching catches fabricated quotes, but not every misinterpretation. A human read-through of a sample is still needed (see `coding_decisions.md`).
 - Quotes from translated or paraphrased sources can fail exact matching; these are flagged, not silently dropped.
-- Exchange-rate movements around events are descriptive and confounded by many other factors.
