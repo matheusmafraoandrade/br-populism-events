@@ -1,6 +1,6 @@
 # br-populism-events
 
-A small, fully documented pipeline that codes **populist actions by Jair Bolsonaro (Brazilian president from 2019 to 2022)** from source texts, verifies every coded event against the original document and cleans the resulting dataset.
+A small Python pipeline for identifying and coding populist actions associated with Jair Bolsonaro's government (2019–2022) from documentary sources and articles.
 
 It is a miniature of an event-level data workflow: *AI-assisted coding → source verification → cleaning/harmonization → documentation → figures*. The goal is not to make substantive claims about any politician, but to show a way of using LLMs for data construction.
 
@@ -18,7 +18,7 @@ sources/*.txt ──► src/extract.py ──► data/events_raw.jsonl
 
 1. **Codebook** (`codebook.md`): categories, definitions and coding rules. The LLM prompt is built from this file.
 2. **Extraction** (`src/extract.py`): an LLM returns JSON events with `action`, `category`, `date`, `outcome` and a **verbatim quote** supporting each of action, date and outcome.
-3. **Verification** (`src/verify.py`): checks programmatically that each quote appears in the source text. Events are marked `confirmed`, `partial` or `unconfirmed`. Nothing is trusted just because the model said it.
+3. **Verification** (`src/verify.py`): checks whether extracted quotes appear in the original source text. Events are marked `confirmed`, `partial` or `unconfirmed` based on quote matching. This does not establish the substantive validity of an event.
 4. **Cleaning** (`src/clean.py`): date parsing, out-of-period flags, missing sources, near-duplicate detection across sources.
 
 ## Setup
@@ -54,13 +54,13 @@ python src/clean.py
 - Coding decisions and ambiguities go to `coding_decisions.md`.
 - Sources are logged in `source_log.csv`.
 
-## Results (fill in after running)
+## Results
 
 | Metric | Value |
 |---|---|
 | Sources used |5|
 | Events extracted |5|
-| Confirmed / partial / unconfirmed |5|
+| Confirmed |5|
 | Duplicates removed |0|
 
 ## Limitations
